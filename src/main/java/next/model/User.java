@@ -29,6 +29,10 @@ public class User {
         return email;
     }
 
+    public Boolean login(String password) {
+        return this.password.equals(password);
+    }
+
     @Override
     public int hashCode() {
         final int prime = 31;
