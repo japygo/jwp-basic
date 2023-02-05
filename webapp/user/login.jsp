@@ -3,11 +3,11 @@
 <!DOCTYPE html>
 <html lang="kr">
 <head>
-  <jsp:include page="/layout/header.html" />
+  <%@ include file="/layout/header.html" %>
 </head>
 <body>
 
-<jsp:include page="/layout/nav.jsp" />
+<%@ include file="/layout/nav.jsp" %>
 
 <div class="container" id="main">
   <div class="col-md-6 col-md-offset-3">
@@ -22,12 +22,12 @@
           <input type="password" class="form-control" id="password" name="password" placeholder="Password">
         </div>
         <button type="submit" class="btn btn-success clearfix pull-right">로그인</button>
-        <div class="clearfix" />
+        <div class="clearfix"/>
       </form>
     </div>
   </div>
 </div>
 
-<jsp:include page="/layout/footer.html" />
+<%@ include file="/layout/footer.html" %>
 </body>
 </html>

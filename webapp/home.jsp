@@ -3,11 +3,11 @@
 <!DOCTYPE html>
 <html lang="kr">
 <head>
-  <jsp:include page="/layout/header.html" />
+  <%@ include file="/layout/header.html" %>
 </head>
 <body>
 
-<jsp:include page="/layout/nav.jsp" />
+<%@ include file="/layout/nav.jsp" %>
 
 <div class="container" id="main">
   <div class="col-md-12 col-sm-12 col-lg-10 col-lg-offset-1">
@@ -148,6 +148,6 @@
 </div>
 -->
 
-<jsp:include page="/layout/footer.html" />
+<%@ include file="/layout/footer.html" %>
 </body>
 </html>

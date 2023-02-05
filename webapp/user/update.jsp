@@ -3,11 +3,11 @@
 <!DOCTYPE html>
 <html lang="kr">
 <head>
-  <jsp:include page="/layout/header.html" />
+  <%@ include file="/layout/header.html" %>
 </head>
 <body>
 
-<jsp:include page="/layout/nav.jsp" />
+<%@ include file="/layout/nav.jsp" %>
 
 <div class="container" id="main">
   <div class="col-md-6 col-md-offset-3">
@@ -19,7 +19,8 @@
         </div>
         <div class="form-group">
           <label for="password">비밀번호</label>
-          <input type="password" class="form-control" id="password" name="password" placeholder="Password" value="${user.password}">
+          <input type="password" class="form-control" id="password" name="password" placeholder="Password"
+                 value="${user.password}">
         </div>
         <div class="form-group">
           <label for="name">이름</label>
@@ -30,12 +31,12 @@
           <input type="email" class="form-control" id="email" name="email" placeholder="Email" value="${user.email}">
         </div>
         <button type="submit" class="btn btn-success clearfix pull-right">수정</button>
-        <div class="clearfix" />
+        <div class="clearfix"/>
       </form>
     </div>
   </div>
 </div>
 
-<jsp:include page="/layout/footer.html" />
+<%@ include file="/layout/footer.html" %>
 </body>
 </html>
