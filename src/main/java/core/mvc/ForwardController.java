@@ -1,4 +1,6 @@
-package next.web;
+package core.mvc;
+
+import core.mvc.Controller;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

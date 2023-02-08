@@ -1,6 +1,7 @@
-package next.web;
+package next.controller;
 
 import core.db.DataBase;
+import core.mvc.Controller;
 import next.model.User;
 import org.springframework.util.StringUtils;
 

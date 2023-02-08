@@ -1,6 +1,7 @@
-package next.web;
+package next.controller;
 
-import core.db.DataBase;
+import core.mvc.Controller;
+import next.dao.UserDao;
 import next.model.User;
 
 import javax.servlet.http.HttpServletRequest;
@@ -15,7 +16,9 @@ public class CreateUserController implements Controller {
                 request.getParameter("name"),
                 request.getParameter("email")
         );
-        DataBase.addUser(user);
+
+        UserDao userDao = new UserDao();
+        userDao.insert(user);
 
         return "/user/list";
     }

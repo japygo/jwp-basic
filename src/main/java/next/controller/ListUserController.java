@@ -1,6 +1,7 @@
-package next.web;
+package next.controller;
 
 import core.db.DataBase;
+import core.mvc.Controller;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

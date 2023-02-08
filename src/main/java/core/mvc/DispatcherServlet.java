@@ -1,7 +1,5 @@
-package core.servlet;
+package core.mvc;
 
-import core.http.RequestMapping;
-import next.web.Controller;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
