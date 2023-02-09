@@ -1,10 +1,10 @@
 package next.model;
 
 public class User {
-    private final String userId;
-    private final String password;
-    private final String name;
-    private final String email;
+    private String userId;
+    private String password;
+    private String name;
+    private String email;
 
     public User(String userId, String password, String name, String email) {
         this.userId = userId;
@@ -31,6 +31,14 @@ public class User {
 
     public Boolean login(String password) {
         return this.password.equals(password);
+    }
+
+    public User update(User user) {
+        this.userId = user.getUserId();
+        this.password = user.getPassword();
+        this.name = user.getName();
+        this.email = user.getEmail();
+        return this;
     }
 
     @Override
