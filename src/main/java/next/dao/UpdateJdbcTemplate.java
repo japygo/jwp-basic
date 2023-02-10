@@ -7,7 +7,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-public class UpdateJdbcTemplate {
+public abstract class UpdateJdbcTemplate {
     public void update(User user) throws SQLException {
         Connection con = null;
         PreparedStatement pstmt = null;
@@ -29,14 +29,7 @@ public class UpdateJdbcTemplate {
         }
     }
 
-    String createQueryForUpdate() {
-        return "UPDATE USERS SET password = ?, name = ?, email = ? WHERE userid = ?";
-    }
+    public abstract String createQueryForUpdate();
 
-    void setValuesForUpdate(User user, PreparedStatement pstmt) throws SQLException {
-        pstmt.setString(1, user.getPassword());
-        pstmt.setString(2, user.getName());
-        pstmt.setString(3, user.getEmail());
-        pstmt.setString(4, user.getUserId());
-    }
+    public abstract void setValuesForUpdate(User user, PreparedStatement pstmt) throws SQLException;
 }
