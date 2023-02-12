@@ -18,17 +18,17 @@ public class JdbcTemplate {
         }
     }
 
-    public List query(String sql, RowMapper rowMapper) throws Exception {
+    public <T> List<T> query(String sql, RowMapper<List<T>> rowMapper) throws Exception {
         try (
                 Connection con = ConnectionManager.getConnection();
                 PreparedStatement pstmt = con.prepareStatement(sql);
                 ResultSet rs = pstmt.executeQuery()
         ) {
-            return (List) rowMapper.mapRow(rs);
+            return rowMapper.mapRow(rs);
         }
     }
 
-    public Object queryForObject(String sql, PreparedStatementSetter pstmtSetter, RowMapper rowMapper) throws Exception {
+    public <T> T queryForObject(String sql, PreparedStatementSetter pstmtSetter, RowMapper<T> rowMapper) throws Exception {
         ResultSet rs = null;
         try (
             Connection con = ConnectionManager.getConnection();

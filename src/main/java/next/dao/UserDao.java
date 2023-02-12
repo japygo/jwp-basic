@@ -38,12 +38,12 @@ public class UserDao {
         jdbcTemplate.update(sql, pstmtSetter);
     }
 
-    public List findAll() throws Exception {
+    public List<User> findAll() throws Exception {
         JdbcTemplate jdbcTemplate = new JdbcTemplate();
         String sql = "SELECT userId, password, name, email FROM USERS";
-        RowMapper rowMapper = new RowMapper() {
+        RowMapper<List<User>> rowMapper = new RowMapper() {
             @Override
-            public Object mapRow(ResultSet rs) throws Exception {
+            public List<User> mapRow(ResultSet rs) throws Exception {
                 List<User> userList = new ArrayList<>();
                 while (rs.next()) {
                     userList.add(new User(
@@ -68,9 +68,9 @@ public class UserDao {
                 pstmt.setString(1, userId);
             }
         };
-        RowMapper rowMapper = new RowMapper() {
+        RowMapper<User> rowMapper = new RowMapper() {
             @Override
-            public Object mapRow(ResultSet rs) throws Exception {
+            public User mapRow(ResultSet rs) throws Exception {
                 User user = null;
                 if (rs.next()) {
                     user = new User(
@@ -83,6 +83,6 @@ public class UserDao {
                 return user;
             }
         };
-        return (User) jdbcTemplate.queryForObject(sql, pstmtSetter, rowMapper);
+        return jdbcTemplate.queryForObject(sql, pstmtSetter, rowMapper);
     }
 }
