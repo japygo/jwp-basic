@@ -43,20 +43,17 @@ public class UserDao {
     public List<User> findAll() throws Exception {
         JdbcTemplate jdbcTemplate = new JdbcTemplate();
         String sql = "SELECT userId, password, name, email FROM USERS";
-        RowMapper<List<User>> rowMapper = new RowMapper() {
-            @Override
-            public List<User> mapRow(ResultSet rs) throws Exception {
-                List<User> userList = new ArrayList<>();
-                while (rs.next()) {
-                    userList.add(new User(
-                            rs.getString("userId"),
-                            rs.getString("password"),
-                            rs.getString("name"),
-                            rs.getString("email")
-                    ));
-                }
-                return userList;
+        RowMapper<List<User>> rowMapper = rs -> {
+            List<User> userList = new ArrayList<>();
+            while (rs.next()) {
+                userList.add(new User(
+                        rs.getString("userId"),
+                        rs.getString("password"),
+                        rs.getString("name"),
+                        rs.getString("email")
+                ));
             }
+            return userList;
         };
         return jdbcTemplate.query(sql, rowMapper);
     }
@@ -70,20 +67,17 @@ public class UserDao {
 //                pstmt.setString(1, userId);
 //            }
 //        };
-        RowMapper<User> rowMapper = new RowMapper() {
-            @Override
-            public User mapRow(ResultSet rs) throws Exception {
-                User user = null;
-                if (rs.next()) {
-                    user = new User(
-                            rs.getString("userId"),
-                            rs.getString("password"),
-                            rs.getString("name"),
-                            rs.getString("email")
-                    );
-                }
-                return user;
+        RowMapper<User> rowMapper = rs -> {
+            User user = null;
+            if (rs.next()) {
+                user = new User(
+                        rs.getString("userId"),
+                        rs.getString("password"),
+                        rs.getString("name"),
+                        rs.getString("email")
+                );
             }
+            return user;
         };
 //        return jdbcTemplate.queryForObject(sql, pstmtSetter, rowMapper);
         return jdbcTemplate.queryForObject(sql, rowMapper, userId);

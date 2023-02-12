@@ -73,12 +73,9 @@ public class JdbcTemplate {
     }
 
     private PreparedStatementSetter createPreparedStatementSetter(Object... values) {
-        return new PreparedStatementSetter() {
-            @Override
-            public void setValues(PreparedStatement pstmt) throws Exception {
-                for (int i = 0; i < values.length; i++) {
-                    pstmt.setObject(i + 1, values[i]);
-                }
+        return pstmt -> {
+            for (int i = 0; i < values.length; i++) {
+                pstmt.setObject(i + 1, values[i]);
             }
         };
     }
