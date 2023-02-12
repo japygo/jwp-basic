@@ -11,31 +11,33 @@ public class UserDao {
     public void insert(User user) throws Exception {
         JdbcTemplate jdbcTemplate = new JdbcTemplate();
         String sql = "INSERT INTO USERS VALUES (?, ?, ?, ?)";
-        PreparedStatementSetter pstmsSetter = new PreparedStatementSetter() {
-            @Override
-            public void setValues(PreparedStatement pstmt) throws Exception {
-                pstmt.setString(1, user.getUserId());
-                pstmt.setString(2, user.getPassword());
-                pstmt.setString(3, user.getName());
-                pstmt.setString(4, user.getEmail());
-            }
-        };
-        jdbcTemplate.update(sql, pstmsSetter);
+//        PreparedStatementSetter pstmsSetter = new PreparedStatementSetter() {
+//            @Override
+//            public void setValues(PreparedStatement pstmt) throws Exception {
+//                pstmt.setString(1, user.getUserId());
+//                pstmt.setString(2, user.getPassword());
+//                pstmt.setString(3, user.getName());
+//                pstmt.setString(4, user.getEmail());
+//            }
+//        };
+//        jdbcTemplate.update(sql, pstmsSetter);
+        jdbcTemplate.update(sql, user.getUserId(), user.getPassword(), user.getName(), user.getEmail());
     }
 
     public void update(User user) throws Exception {
         JdbcTemplate jdbcTemplate = new JdbcTemplate();
         String sql = "UPDATE USERS SET password = ?, name = ?, email = ? WHERE userid = ?";
-        PreparedStatementSetter pstmtSetter = new PreparedStatementSetter() {
-            @Override
-            public void setValues(PreparedStatement pstmt) throws Exception {
-                pstmt.setString(1, user.getPassword());
-                pstmt.setString(2, user.getName());
-                pstmt.setString(3, user.getEmail());
-                pstmt.setString(4, user.getUserId());
-            }
-        };
-        jdbcTemplate.update(sql, pstmtSetter);
+//        PreparedStatementSetter pstmtSetter = new PreparedStatementSetter() {
+//            @Override
+//            public void setValues(PreparedStatement pstmt) throws Exception {
+//                pstmt.setString(1, user.getPassword());
+//                pstmt.setString(2, user.getName());
+//                pstmt.setString(3, user.getEmail());
+//                pstmt.setString(4, user.getUserId());
+//            }
+//        };
+//        jdbcTemplate.update(sql, pstmtSetter);
+        jdbcTemplate.update(sql, user.getPassword(), user.getName(), user.getEmail(), user.getUserId());
     }
 
     public List<User> findAll() throws Exception {
@@ -62,12 +64,12 @@ public class UserDao {
     public User findByUserId(String userId) throws Exception {
         JdbcTemplate jdbcTemplate = new JdbcTemplate();
         String sql = "SELECT userId, password, name, email FROM USERS WHERE userid=?";
-        PreparedStatementSetter pstmtSetter = new PreparedStatementSetter() {
-            @Override
-            public void setValues(PreparedStatement pstmt) throws Exception {
-                pstmt.setString(1, userId);
-            }
-        };
+//        PreparedStatementSetter pstmtSetter = new PreparedStatementSetter() {
+//            @Override
+//            public void setValues(PreparedStatement pstmt) throws Exception {
+//                pstmt.setString(1, userId);
+//            }
+//        };
         RowMapper<User> rowMapper = new RowMapper() {
             @Override
             public User mapRow(ResultSet rs) throws Exception {
@@ -83,6 +85,7 @@ public class UserDao {
                 return user;
             }
         };
-        return jdbcTemplate.queryForObject(sql, pstmtSetter, rowMapper);
+//        return jdbcTemplate.queryForObject(sql, pstmtSetter, rowMapper);
+        return jdbcTemplate.queryForObject(sql, rowMapper, userId);
     }
 }
