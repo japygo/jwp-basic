@@ -8,7 +8,7 @@ import java.util.List;
 import next.model.User;
 
 public class UserDao {
-    public void insert(User user) throws Exception {
+    public void insert(User user) {
         JdbcTemplate jdbcTemplate = new JdbcTemplate();
         String sql = "INSERT INTO USERS VALUES (?, ?, ?, ?)";
 //        PreparedStatementSetter pstmsSetter = new PreparedStatementSetter() {
@@ -24,7 +24,7 @@ public class UserDao {
         jdbcTemplate.update(sql, user.getUserId(), user.getPassword(), user.getName(), user.getEmail());
     }
 
-    public void update(User user) throws Exception {
+    public void update(User user) {
         JdbcTemplate jdbcTemplate = new JdbcTemplate();
         String sql = "UPDATE USERS SET password = ?, name = ?, email = ? WHERE userid = ?";
 //        PreparedStatementSetter pstmtSetter = new PreparedStatementSetter() {
@@ -40,7 +40,7 @@ public class UserDao {
         jdbcTemplate.update(sql, user.getPassword(), user.getName(), user.getEmail(), user.getUserId());
     }
 
-    public List<User> findAll() throws Exception {
+    public List<User> findAll() {
         JdbcTemplate jdbcTemplate = new JdbcTemplate();
         String sql = "SELECT userId, password, name, email FROM USERS";
         RowMapper<List<User>> rowMapper = rs -> {
@@ -58,7 +58,7 @@ public class UserDao {
         return jdbcTemplate.query(sql, rowMapper);
     }
 
-    public User findByUserId(String userId) throws Exception {
+    public User findByUserId(String userId) {
         JdbcTemplate jdbcTemplate = new JdbcTemplate();
         String sql = "SELECT userId, password, name, email FROM USERS WHERE userid=?";
 //        PreparedStatementSetter pstmtSetter = new PreparedStatementSetter() {
