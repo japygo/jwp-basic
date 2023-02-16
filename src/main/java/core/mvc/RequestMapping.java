@@ -1,6 +1,11 @@
 package core.mvc;
 
 import next.controller.*;
+import next.controller.qna.CreateAnswerController;
+import next.controller.qna.CreateQuestionController;
+import next.controller.qna.QnaFormController;
+import next.controller.qna.QnaShowController;
+import next.controller.user.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -18,6 +23,11 @@ public class RequestMapping {
         controllers.put("/user/form", new UserFormController());
         controllers.put("/user/updateUserForm", new UpdateUserFormController());
         controllers.put("/user/loginForm", new ForwardController("/user/login.jsp"));
+        controllers.put("/user/profile", new ProfileController());
+        controllers.put("/qna/form", new QnaFormController());
+        controllers.put("/qna/show", new QnaShowController());
+        controllers.put("/question/create", new CreateQuestionController());
+        controllers.put("/answer/create", new CreateAnswerController());
     }
 
     public Controller getController(String url) {

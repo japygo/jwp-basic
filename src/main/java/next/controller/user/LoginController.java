@@ -1,7 +1,7 @@
-package next.controller;
+package next.controller.user;
 
-import core.db.DataBase;
 import core.mvc.Controller;
+import next.dao.UserDao;
 import next.model.User;
 
 import javax.servlet.http.HttpServletRequest;
@@ -14,7 +14,8 @@ public class LoginController implements Controller {
         String userId = request.getParameter("userId");
         String password = request.getParameter("password");
 
-        User user = DataBase.findUserById(userId);
+        UserDao userDao = new UserDao();
+        User user = userDao.findByUserId(userId);
         if (user == null) {
             return "redirect:/user/login.jsp";
         }

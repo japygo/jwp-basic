@@ -1,7 +1,7 @@
-package next.controller;
+package next.controller.user;
 
-import core.db.DataBase;
 import core.mvc.Controller;
+import next.dao.UserDao;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -16,7 +16,8 @@ public class ListUserController implements Controller {
             return "redirect:/user/loginForm";
         }
 
-        request.setAttribute("users", DataBase.findAll());
+        UserDao userDao = new UserDao();
+        request.setAttribute("users", userDao.findAll());
         return "/user/list.jsp";
     }
 }

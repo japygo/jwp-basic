@@ -1,7 +1,7 @@
-package next.controller;
+package next.controller.user;
 
-import core.db.DataBase;
 import core.mvc.Controller;
+import next.dao.UserDao;
 import next.model.User;
 import org.springframework.util.StringUtils;
 
@@ -12,7 +12,8 @@ public class UpdateUserController implements Controller {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
         String userId = request.getParameter("userId");
-        User user = DataBase.findUserById(userId);
+        UserDao userDao = new UserDao();
+        User user = userDao.findByUserId(userId);
         String password = request.getParameter("password");
         if (!StringUtils.hasText(password)) {
             password = user.getPassword();
@@ -26,7 +27,7 @@ public class UpdateUserController implements Controller {
             email = user.getEmail();
         }
 
-        DataBase.addUser(new User(userId, password, name, email));
+        userDao.update(new User(userId, password, name, email));
         return "redirect:/user/list";
     }
 }

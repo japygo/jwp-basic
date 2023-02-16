@@ -1,7 +1,4 @@
-package next.dao;
-
-import core.jdbc.ConnectionManager;
-import core.jdbc.DataAccessException;
+package core.jdbc;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -37,6 +34,33 @@ public class JdbcTemplate {
         } catch (SQLException e) {
             throw new DataAccessException(e);
         }
+    }
+
+    public <T> List<T> query(String sql, PreparedStatementSetter pstmtSetter, RowMapper<List<T>> rowMapper) {
+        ResultSet rs = null;
+        try (
+                Connection con = ConnectionManager.getConnection();
+                PreparedStatement pstmt = con.prepareStatement(sql)
+        ) {
+            pstmtSetter.setValues(pstmt);
+            rs = pstmt.executeQuery();
+            return rowMapper.mapRow(rs);
+        } catch (SQLException e) {
+            throw new DataAccessException(e);
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public <T> List<T> query(String sql, RowMapper<List<T>> rowMapper, Object... values) {
+        PreparedStatementSetter pstmtSetter = createPreparedStatementSetter(values);
+        return query(sql, pstmtSetter, rowMapper);
     }
 
     public <T> T queryForObject(String sql, PreparedStatementSetter pstmtSetter, RowMapper<T> rowMapper) {

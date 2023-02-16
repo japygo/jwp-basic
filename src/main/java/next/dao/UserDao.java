@@ -1,10 +1,10 @@
 package next.dao;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
+import core.jdbc.JdbcTemplate;
+import core.jdbc.RowMapper;
 import next.model.User;
 
 public class UserDao {
