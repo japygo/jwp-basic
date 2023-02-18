@@ -1,10 +1,7 @@
 package core.mvc;
 
 import next.controller.*;
-import next.controller.qna.CreateAnswerController;
-import next.controller.qna.CreateQuestionController;
-import next.controller.qna.QnaFormController;
-import next.controller.qna.QnaShowController;
+import next.controller.qna.*;
 import next.controller.user.*;
 
 import java.util.HashMap;
@@ -28,6 +25,7 @@ public class RequestMapping {
         controllers.put("/qna/show", new QnaShowController());
         controllers.put("/question/create", new CreateQuestionController());
         controllers.put("/answer/create", new CreateAnswerController());
+        controllers.put("/api/qna/addAnswer", new AddAnswerController());
     }
 
     public Controller getController(String url) {

@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <!DOCTYPE html>
 <html lang="kr">
@@ -23,7 +24,10 @@
               </strong>
               <div class="auth-info">
                 <i class="icon-add-comment"></i>
-                <span class="time">${question.createdDate}</span>
+                <span class="time">
+                  <fmt:parseDate value="${question.createdDate}" pattern="yyyy-MM-dd'T'HH:mm:ss" var="parsedDate" type="both" />
+                  <fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${parsedDate}" />
+                </span>
                 <a href="/user/profile" class="author">${question.writer}</a>
               </div>
               <div class="reply" title="댓글">

@@ -8,10 +8,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AnswerDao {
-    public void insert(Answer answer) {
+    public Answer insert(Answer answer) {
         JdbcTemplate jdbcTemplate = new JdbcTemplate();
         String sql = "INSERT INTO ANSWERS VALUES (?, ?, ?, ?, ?)";
         jdbcTemplate.update(sql, answer.getAnswerId(), answer.getWriter(), answer.getContents(), answer.getCreatedDate(), answer.getQuestionId());
+        return findByAnswerId(answer.getAnswerId());
     }
 
     public void update(Answer answer) {

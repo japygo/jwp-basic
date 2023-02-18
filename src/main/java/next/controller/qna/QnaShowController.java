@@ -3,12 +3,10 @@ package next.controller.qna;
 import core.mvc.Controller;
 import next.dao.AnswerDao;
 import next.dao.QuestionDao;
-import next.model.Answer;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.util.List;
 
 public class QnaShowController implements Controller {
     @Override
@@ -26,9 +24,7 @@ public class QnaShowController implements Controller {
         request.setAttribute("question", questionDao.findByQuestionId(questionId));
 
         AnswerDao answerDao = new AnswerDao();
-        List<Answer> answerList = answerDao.findAll(questionId);
-        request.setAttribute("answers", answerList);
-        request.setAttribute("answersCount", answerList.size());
+        request.setAttribute("answers", answerDao.findAll(questionId));
 
         return "/qna/show.jsp";
     }
