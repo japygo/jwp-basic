@@ -26,6 +26,7 @@ public class RequestMapping {
         controllers.put("/question/create", new CreateQuestionController());
         controllers.put("/answer/create", new CreateAnswerController());
         controllers.put("/api/qna/addAnswer", new AddAnswerController());
+        controllers.put("/api/qna/deleteAnswer", new DeleteAnswerController());
     }
 
     public Controller getController(String url) {

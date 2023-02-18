@@ -32,6 +32,10 @@ public class AnswerDaoTest {
         answerDao.update(expected);
         actual = answerDao.findByAnswerId(expected.getAnswerId());
         assertThat(actual).isEqualTo(expected);
+
+        answerDao.delete(expected.getAnswerId());
+        actual = answerDao.findByAnswerId(expected.getAnswerId());
+        assertThat(actual).isNull();
     }
 
     @Test

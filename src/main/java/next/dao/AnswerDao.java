@@ -56,4 +56,10 @@ public class AnswerDao {
             return answer;
         }, answerId);
     }
+
+    public void delete(long answerId) {
+        JdbcTemplate jdbcTemplate = new JdbcTemplate();
+        String sql = "DELETE FROM ANSWERS WHERE answerId = ?";
+        jdbcTemplate.update(sql, answerId);
+    }
 }

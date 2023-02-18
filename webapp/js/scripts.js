@@ -12,6 +12,7 @@ $(document).ready(function(){/* jQuery toggle layout */
   });
 
   $(".answerWrite input[type=submit]").click(addAnswer);
+  $(".qna-comment").on('click', '.form-delete', deleteAnswer);
 });
 
 String.prototype.format = function() {
@@ -47,4 +48,25 @@ function onSuccess(json, status) {
 
 function onError(xhr, status) {
   alert("error");
+}
+
+function deleteAnswer(e) {
+  e.preventDefault();
+
+  const queryString = $(this).closest(".form-delete").serialize();
+
+  $.ajax({
+    type : 'post',
+    url : '/api/qna/deleteAnswer',
+    data : queryString,
+    dataType : 'json',
+    error : onError,
+    success : (json, status) => {
+      if (json.status) {
+        $(this).closest(".article").remove();
+      } else {
+        alert(json.message);
+      }
+    }
+  });
 }
