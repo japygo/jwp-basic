@@ -1,6 +1,8 @@
 package next.controller.qna;
 
 import core.mvc.Controller;
+import core.mvc.JspView;
+import core.mvc.ModelAndView;
 import next.dao.AnswerDao;
 import next.dao.QuestionDao;
 import next.model.Answer;
@@ -13,16 +15,19 @@ import javax.servlet.http.HttpSession;
 
 public class CreateAnswerController implements Controller {
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    public ModelAndView execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
         String writer = null;
         HttpSession session = request.getSession();
         Object value = session.getAttribute("user");
+        ModelAndView modelAndView = new ModelAndView();
         if (value != null) {
             User user = (User) value;
             writer = user.getName();
         }
         if (writer == null) {
-            return "redirect:/user/loginForm";
+            JspView jspView = new JspView("redirect:/user/loginForm");
+            modelAndView.setView(jspView);
+            return modelAndView;
         }
 
         long questionId = Long.parseLong(request.getParameter("questionId"));
@@ -41,6 +46,8 @@ public class CreateAnswerController implements Controller {
         question.setCountOfAnswer(question.getCountOfAnswer() + 1);
         questionDao.update(question);
 
-        return "/qna/show?questionId=" + questionId;
+        JspView jspView = new JspView("/qna/show?questionId=" + questionId);
+        modelAndView.setView(jspView);
+        return modelAndView;
     }
 }

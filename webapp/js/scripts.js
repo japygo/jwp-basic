@@ -41,8 +41,9 @@ function addAnswer(e) {
 }
 
 function onSuccess(json, status) {
+  const { answer } = json
   const answerTemplate = $("#answerTemplate").html();
-  const template = answerTemplate.format(json.writer, new Date(json.createdDate), json.contents, json.answerId);
+  const template = answerTemplate.format(answer.writer, new Date(answer.createdDate), answer.contents, answer.answerId);
   $(".qna-comment-slipp-articles").prepend(template);
 }
 
@@ -62,10 +63,11 @@ function deleteAnswer(e) {
     dataType : 'json',
     error : onError,
     success : (json, status) => {
-      if (json.status) {
+      const { result } = json
+      if (result.status) {
         $(this).closest(".article").remove();
       } else {
-        alert(json.message);
+        alert(result.message);
       }
     }
   });

@@ -14,7 +14,10 @@ public class ForwardController implements Controller {
     }
 
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        return url;
+    public ModelAndView execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        ModelAndView modelAndView = new ModelAndView();
+        JspView jspView = new JspView(url);
+        modelAndView.setView(jspView);
+        return modelAndView;
     }
 }

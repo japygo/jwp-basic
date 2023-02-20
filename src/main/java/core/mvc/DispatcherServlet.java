@@ -14,7 +14,6 @@ import java.io.IOException;
 @WebServlet(name = "dispatcher", urlPatterns = "/", loadOnStartup = 1)
 public class DispatcherServlet extends HttpServlet {
     private static final Logger logger = LoggerFactory.getLogger(DispatcherServlet.class);
-    public static final String REDIRECT_PREFIX = "redirect:";
     private RequestMapping requestMapping;
 
     @Override
@@ -30,21 +29,14 @@ public class DispatcherServlet extends HttpServlet {
 
         Controller controller = requestMapping.getController(requestUri);
         try {
-            String viewName = controller.execute(req, resp);
-            if (viewName != null) {
-                move(req, resp, viewName);
-            }
+            ModelAndView modelAndView = controller.execute(req, resp);
+            modelAndView.getView().render(modelAndView.getModel(), req, resp);
+//            String viewName = controller.execute(req, resp);
+//            if (viewName != null) {
+//                move(req, resp, viewName);
+//            }
         } catch (Throwable e) {
             throw new ServletException(e.getMessage());
         }
-    }
-
-    private void move(HttpServletRequest req, HttpServletResponse resp, String viewName) throws IOException, ServletException {
-        if (viewName.startsWith(REDIRECT_PREFIX)) {
-            resp.sendRedirect(viewName.substring(REDIRECT_PREFIX.length()));
-            return;
-        }
-        RequestDispatcher rd = req.getRequestDispatcher(viewName);
-        rd.forward(req, resp);
     }
 }
