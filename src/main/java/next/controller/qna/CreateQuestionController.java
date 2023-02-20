@@ -1,7 +1,6 @@
 package next.controller.qna;
 
-import core.mvc.Controller;
-import core.mvc.JspView;
+import core.mvc.AbstractController;
 import core.mvc.ModelAndView;
 import next.dao.QuestionDao;
 import next.model.Question;
@@ -9,7 +8,9 @@ import next.model.Question;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class CreateQuestionController implements Controller {
+public class CreateQuestionController extends AbstractController {
+    private final QuestionDao questionDao = new QuestionDao();
+
     @Override
     public ModelAndView execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
         Question question = new Question(
@@ -18,13 +19,8 @@ public class CreateQuestionController implements Controller {
                 request.getParameter("contents")
         );
 
-        QuestionDao questionDao = new QuestionDao();
         questionDao.insert(question);
 
-        ModelAndView modelAndView = new ModelAndView();
-        JspView jspView = new JspView("/");
-        modelAndView.setView(jspView);
-
-        return modelAndView;
+        return jspView("/");
     }
 }

@@ -1,7 +1,6 @@
 package next.controller.user;
 
-import core.mvc.Controller;
-import core.mvc.JspView;
+import core.mvc.AbstractController;
 import core.mvc.ModelAndView;
 import next.dao.UserDao;
 import next.model.User;
@@ -10,11 +9,12 @@ import org.springframework.util.StringUtils;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class UpdateUserController implements Controller {
+public class UpdateUserController extends AbstractController {
+    private final UserDao userDao = new UserDao();
+
     @Override
     public ModelAndView execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
         String userId = request.getParameter("userId");
-        UserDao userDao = new UserDao();
         User user = userDao.findByUserId(userId);
         String password = request.getParameter("password");
         if (!StringUtils.hasText(password)) {
@@ -31,10 +31,6 @@ public class UpdateUserController implements Controller {
 
         userDao.update(new User(userId, password, name, email));
 
-        ModelAndView modelAndView = new ModelAndView();
-        JspView jspView = new JspView("redirect:/user/list");
-        modelAndView.setView(jspView);
-
-        return modelAndView;
+        return jspView("redirect:/user/list");
     }
 }

@@ -10,6 +10,9 @@ public class JspView implements View {
     private final String viewName;
 
     public JspView(String viewName) {
+        if (viewName == null) {
+            throw new NullPointerException("viewName is null. 이동할 URL을 추가해 주세요");
+        }
         this.viewName = viewName;
     }
 
