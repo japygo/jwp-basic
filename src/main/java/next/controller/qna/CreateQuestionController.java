@@ -21,6 +21,6 @@ public class CreateQuestionController extends AbstractController {
 
         questionDao.insert(question);
 
-        return jspView("/");
+        return jspView("redirect:/");
     }
 }

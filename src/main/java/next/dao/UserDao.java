@@ -9,7 +9,7 @@ import next.model.User;
 
 public class UserDao {
     public void insert(User user) {
-        JdbcTemplate jdbcTemplate = new JdbcTemplate();
+        JdbcTemplate jdbcTemplate = JdbcTemplate.getInstance();
         String sql = "INSERT INTO USERS VALUES (?, ?, ?, ?)";
 //        PreparedStatementSetter pstmsSetter = new PreparedStatementSetter() {
 //            @Override
@@ -25,7 +25,7 @@ public class UserDao {
     }
 
     public void update(User user) {
-        JdbcTemplate jdbcTemplate = new JdbcTemplate();
+        JdbcTemplate jdbcTemplate = JdbcTemplate.getInstance();
         String sql = "UPDATE USERS SET password = ?, name = ?, email = ? WHERE userid = ?";
 //        PreparedStatementSetter pstmtSetter = new PreparedStatementSetter() {
 //            @Override
@@ -41,7 +41,7 @@ public class UserDao {
     }
 
     public List<User> findAll() {
-        JdbcTemplate jdbcTemplate = new JdbcTemplate();
+        JdbcTemplate jdbcTemplate = JdbcTemplate.getInstance();
         String sql = "SELECT userId, password, name, email FROM USERS";
         RowMapper<List<User>> rowMapper = rs -> {
             List<User> userList = new ArrayList<>();
@@ -59,7 +59,7 @@ public class UserDao {
     }
 
     public User findByUserId(String userId) {
-        JdbcTemplate jdbcTemplate = new JdbcTemplate();
+        JdbcTemplate jdbcTemplate = JdbcTemplate.getInstance();
         String sql = "SELECT userId, password, name, email FROM USERS WHERE userid=?";
 //        PreparedStatementSetter pstmtSetter = new PreparedStatementSetter() {
 //            @Override

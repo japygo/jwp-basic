@@ -1,27 +1,40 @@
 package core.jdbc;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.List;
 
 public class JdbcTemplate {
-    public void update(String sql, PreparedStatementSetter pstmtSetter) {
+    private JdbcTemplate() {}
+
+    public static JdbcTemplate getInstance() {
+        return JdbcTemplateHolder.INSTANCE;
+    }
+
+    private static class JdbcTemplateHolder {
+        private static final JdbcTemplate INSTANCE = new JdbcTemplate();
+    }
+
+    public long update(String sql, PreparedStatementSetter pstmtSetter) {
         try (
                 Connection con = ConnectionManager.getConnection();
-                PreparedStatement pstmt = con.prepareStatement(sql)
+                PreparedStatement pstmt = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)
         ) {
             pstmtSetter.setValues(pstmt);
             pstmt.executeUpdate();
+            ResultSet rs = pstmt.getGeneratedKeys();
+            if (rs.next()) {
+                return rs.getLong(1);
+            }
+            rs.close();
+            return 0;
         } catch (SQLException e) {
             throw new DataAccessException(e);
         }
     }
 
-    public void update(String sql, Object... values) {
+    public long update(String sql, Object... values) {
         PreparedStatementSetter pstmtSetter = createPreparedStatementSetter(values);
-        update(sql, pstmtSetter);
+        return update(sql, pstmtSetter);
     }
 
     public <T> List<T> query(String sql, RowMapper<List<T>> rowMapper) {

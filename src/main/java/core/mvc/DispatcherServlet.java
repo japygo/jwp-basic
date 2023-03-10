@@ -18,6 +18,8 @@ public class DispatcherServlet extends HttpServlet {
     public void init() {
         requestMapping = new RequestMapping();
         requestMapping.initMapping();
+
+        logger.info("Complete init DispatcherServlet");
     }
 
     @Override

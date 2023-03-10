@@ -51,6 +51,13 @@ public class Question {
         this.countOfAnswer = countOfAnswer;
     }
 
+    public Question update(Question question) {
+        this.writer = question.getWriter();
+        this.title = question.getTitle();
+        this.contents = question.getContents();
+        return this;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

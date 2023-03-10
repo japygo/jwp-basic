@@ -1,6 +1,8 @@
 package core.mvc;
 
 import next.controller.*;
+import next.controller.api.ApiDeleteQuestionController;
+import next.controller.api.ApiQnaListController;
 import next.controller.qna.*;
 import next.controller.user.*;
 
@@ -27,6 +29,11 @@ public class RequestMapping {
         controllers.put("/answer/create", new CreateAnswerController());
         controllers.put("/api/qna/addAnswer", new AddAnswerController());
         controllers.put("/api/qna/deleteAnswer", new DeleteAnswerController());
+        controllers.put("/api/qna/list", new ApiQnaListController());
+        controllers.put("/question/updateForm", new UpdateQnaFormController());
+        controllers.put("/question/update", new UpdateQnaController());
+        controllers.put("/question/delete", new DeleteQuestionController());
+        controllers.put("/api/question/delete", new ApiDeleteQuestionController());
     }
 
     public Controller getController(String url) {

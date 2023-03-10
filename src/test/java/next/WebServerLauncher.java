@@ -14,10 +14,12 @@ public class WebServerLauncher {
         Tomcat tomcat = new Tomcat();
         tomcat.setPort(8080);
 
-        tomcat.addWebapp("/", new File(webappDirLocation).getAbsolutePath());
+        tomcat.addWebapp("", new File(webappDirLocation).getAbsolutePath());
         logger.info("configuring app with basedir: {}", new File("./" + webappDirLocation).getAbsolutePath());
 
         tomcat.start();
+        logger.info("Tomcat start");
         tomcat.getServer().await();
+        logger.info("Tomcat server await");
     }
 }

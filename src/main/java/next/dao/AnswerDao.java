@@ -9,20 +9,20 @@ import java.util.List;
 
 public class AnswerDao {
     public Answer insert(Answer answer) {
-        JdbcTemplate jdbcTemplate = new JdbcTemplate();
-        String sql = "INSERT INTO ANSWERS VALUES (?, ?, ?, ?, ?)";
-        jdbcTemplate.update(sql, answer.getAnswerId(), answer.getWriter(), answer.getContents(), answer.getCreatedDate(), answer.getQuestionId());
-        return findByAnswerId(answer.getAnswerId());
+        JdbcTemplate jdbcTemplate = JdbcTemplate.getInstance();
+        String sql = "INSERT INTO ANSWERS (writer, contents, createdDate, questionId) VALUES (?, ?, ?, ?)";
+        long id = jdbcTemplate.update(sql, answer.getWriter(), answer.getContents(), answer.getCreatedDate(), answer.getQuestionId());
+        return findByAnswerId(id);
     }
 
     public void update(Answer answer) {
-        JdbcTemplate jdbcTemplate = new JdbcTemplate();
+        JdbcTemplate jdbcTemplate = JdbcTemplate.getInstance();
         String sql = "UPDATE ANSWERS SET writer = ?, contents = ? WHERE answerId = ?";
         jdbcTemplate.update(sql, answer.getWriter(), answer.getContents(), answer.getAnswerId());
     }
 
     public List<Answer> findAll(long questionId) {
-        JdbcTemplate jdbcTemplate = new JdbcTemplate();
+        JdbcTemplate jdbcTemplate = JdbcTemplate.getInstance();
         String sql = "SELECT answerId, writer, contents, createdDate, questionId FROM ANSWERS WHERE questionId = ?";
         return jdbcTemplate.query(sql, rs -> {
             List<Answer> answerList = new ArrayList<>();
@@ -40,7 +40,7 @@ public class AnswerDao {
     }
 
     public Answer findByAnswerId(long answerId) {
-        JdbcTemplate jdbcTemplate = new JdbcTemplate();
+        JdbcTemplate jdbcTemplate = JdbcTemplate.getInstance();
         String sql = "SELECT answerId, writer, contents, createdDate, questionId FROM ANSWERS WHERE answerId = ?";
         return jdbcTemplate.queryForObject(sql, rs -> {
             Answer answer = null;
@@ -58,7 +58,7 @@ public class AnswerDao {
     }
 
     public void delete(long answerId) {
-        JdbcTemplate jdbcTemplate = new JdbcTemplate();
+        JdbcTemplate jdbcTemplate = JdbcTemplate.getInstance();
         String sql = "DELETE FROM ANSWERS WHERE answerId = ?";
         jdbcTemplate.update(sql, answerId);
     }

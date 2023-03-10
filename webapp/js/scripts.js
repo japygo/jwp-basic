@@ -45,6 +45,7 @@ function onSuccess(json, status) {
   const answerTemplate = $("#answerTemplate").html();
   const template = answerTemplate.format(answer.writer, new Date(answer.createdDate), answer.contents, answer.answerId);
   $(".qna-comment-slipp-articles").prepend(template);
+  $("form[name=answer]")[0].reset()
 }
 
 function onError(xhr, status) {
