@@ -8,6 +8,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AnswerDao {
+    private AnswerDao() {}
+
+    public static AnswerDao getInstance() {
+        return AnswerDaoHolder.INSTANCE;
+    }
+
+    private static class AnswerDaoHolder {
+        private static final AnswerDao INSTANCE = new AnswerDao();
+    }
+
+
     public Answer insert(Answer answer) {
         JdbcTemplate jdbcTemplate = JdbcTemplate.getInstance();
         String sql = "INSERT INTO ANSWERS (writer, contents, createdDate, questionId) VALUES (?, ?, ?, ?)";

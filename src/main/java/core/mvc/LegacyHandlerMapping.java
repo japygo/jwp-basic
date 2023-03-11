@@ -1,28 +1,30 @@
 package core.mvc;
 
+import core.nmvc.HandlerMapping;
 import next.controller.*;
 import next.controller.api.ApiDeleteQuestionController;
 import next.controller.api.ApiQnaListController;
 import next.controller.qna.*;
 import next.controller.user.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.Map;
 
-public class RequestMapping {
+public class LegacyHandlerMapping implements HandlerMapping {
     private static final Map<String, Controller> controllers = new HashMap<>();
 
     public void initMapping() {
-        controllers.put("/user/create", new CreateUserController());
-        controllers.put("/", new HomeController());
-        controllers.put("/user/list", new ListUserController());
-        controllers.put("/user/login", new LoginController());
-        controllers.put("/user/logout", new LogoutController());
-        controllers.put("/user/update", new UpdateUserController());
-        controllers.put("/user/form", new UserFormController());
-        controllers.put("/user/updateUserForm", new UpdateUserFormController());
-        controllers.put("/user/loginForm", new ForwardController("/user/login.jsp"));
-        controllers.put("/user/profile", new ProfileController());
+//        controllers.put("/user/create", new CreateUserController());
+//        controllers.put("/", new HomeController());
+//        controllers.put("/user/list", new ListUserController());
+//        controllers.put("/user/login", new LoginController());
+//        controllers.put("/user/logout", new LogoutController());
+//        controllers.put("/user/update", new UpdateUserController());
+//        controllers.put("/user/form", new UserFormController());
+//        controllers.put("/user/updateUserForm", new UpdateUserFormController());
+//        controllers.put("/user/loginForm", new ForwardController("/user/login.jsp"));
+//        controllers.put("/user/profile", new ProfileController());
         controllers.put("/qna/form", new QnaFormController());
         controllers.put("/qna/show", new QnaShowController());
         controllers.put("/question/create", new CreateQuestionController());
@@ -38,5 +40,10 @@ public class RequestMapping {
 
     public Controller getController(String url) {
         return controllers.get(url);
+    }
+
+    @Override
+    public Controller getHandler(HttpServletRequest request) {
+        return controllers.get(request.getRequestURI());
     }
 }

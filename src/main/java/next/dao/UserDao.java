@@ -8,6 +8,16 @@ import core.jdbc.RowMapper;
 import next.model.User;
 
 public class UserDao {
+    private UserDao() {}
+
+    public static UserDao getInstance() {
+        return UserDaoHolder.INSTANCE;
+    }
+
+    private static class UserDaoHolder {
+        private static final UserDao INSTANCE = new UserDao();
+    }
+
     public void insert(User user) {
         JdbcTemplate jdbcTemplate = JdbcTemplate.getInstance();
         String sql = "INSERT INTO USERS VALUES (?, ?, ?, ?)";

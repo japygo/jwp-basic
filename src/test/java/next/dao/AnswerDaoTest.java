@@ -23,7 +23,7 @@ public class AnswerDaoTest {
     @Test
     public void crud() {
         Answer expected = new Answer("writer", "contents", 1);
-        AnswerDao answerDao = new AnswerDao();
+        AnswerDao answerDao = AnswerDao.getInstance();
         answerDao.insert(expected);
         Answer actual = answerDao.findByAnswerId(expected.getAnswerId());
         assertThat(actual).isEqualTo(expected);
@@ -40,7 +40,7 @@ public class AnswerDaoTest {
 
     @Test
     public void findAll() {
-        AnswerDao answerDao = new AnswerDao();
+        AnswerDao answerDao = AnswerDao.getInstance();
         List<Answer> answerList = answerDao.findAll(8);
         assertThat(answerList.size()).isEqualTo(3);
     }

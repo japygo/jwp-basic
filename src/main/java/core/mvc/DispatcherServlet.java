@@ -9,14 +9,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet(name = "dispatcher", urlPatterns = "/", loadOnStartup = 1)
+//@WebServlet(name = "dispatcher", urlPatterns = "/", loadOnStartup = 1)
 public class DispatcherServlet extends HttpServlet {
     private static final Logger logger = LoggerFactory.getLogger(DispatcherServlet.class);
-    private RequestMapping requestMapping;
+    private LegacyHandlerMapping requestMapping;
 
     @Override
     public void init() {
-        requestMapping = new RequestMapping();
+        requestMapping = new LegacyHandlerMapping();
         requestMapping.initMapping();
 
         logger.info("Complete init DispatcherServlet");

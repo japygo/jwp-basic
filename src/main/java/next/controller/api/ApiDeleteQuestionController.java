@@ -15,8 +15,8 @@ import javax.servlet.http.HttpSession;
 import java.util.List;
 
 public class ApiDeleteQuestionController extends AbstractController {
-    private final QuestionDao questionDao = new QuestionDao();
-    private final AnswerDao answerDao = new AnswerDao();
+    private final QuestionDao questionDao = QuestionDao.getInstance();
+    private final AnswerDao answerDao = AnswerDao.getInstance();
 
     @Override
     public ModelAndView execute(HttpServletRequest request, HttpServletResponse response) throws Exception {

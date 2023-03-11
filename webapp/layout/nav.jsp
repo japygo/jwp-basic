@@ -51,7 +51,7 @@
         <li class="active"><a href="/">Posts</a></li>
         <c:choose>
           <c:when test="${empty sessionScope.user}">
-            <li><a href="/user/login" role="button">로그인</a></li>
+            <li><a href="/user/loginForm" role="button">로그인</a></li>
             <li><a href="/user/form" role="button">회원가입</a></li>
           </c:when>
           <c:otherwise>
