@@ -8,6 +8,8 @@ import org.slf4j.LoggerFactory;
 
 import java.util.Arrays;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 public class ReflectionTest {
     private static final Logger logger = LoggerFactory.getLogger(ReflectionTest.class);
 
@@ -27,6 +29,16 @@ public class ReflectionTest {
     public void newInstanceWithConstructorArgs() {
         Class<User> clazz = User.class;
         logger.debug(clazz.getName());
+        String userId = "test";
+        String password = "password";
+        String name = "name";
+        String email = "test@email.com";
+        try {
+            User user = clazz.getDeclaredConstructor(String.class, String.class, String.class, String.class).newInstance(userId, password, name, email);
+            assertThat(user).isEqualTo(new User(userId, password, name, email));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Test
