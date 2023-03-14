@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.lang.reflect.Field;
 import java.util.Arrays;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -45,5 +46,18 @@ public class ReflectionTest {
     public void privateFieldAccess() {
         Class<Student> clazz = Student.class;
         logger.debug(clazz.getName());
+        try {
+            Student student = new Student();
+            Field nameField = clazz.getDeclaredField("name");
+            nameField.setAccessible(true);
+            nameField.set(student, "주한");
+            Field ageField = clazz.getDeclaredField("age");
+            ageField.setAccessible(true);
+            ageField.set(student, 14);
+            logger.debug(student.getName());
+            logger.debug(String.valueOf(student.getAge()));
+        } catch (NoSuchFieldException | IllegalAccessException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
